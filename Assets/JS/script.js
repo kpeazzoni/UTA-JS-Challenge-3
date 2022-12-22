@@ -88,13 +88,13 @@ function generatePassword() {
     for ( var i = 0; i < passwordLength; i++) {
         var index =  Math.floor(Math.random() * lowerCase.length);
         var randomLower = lowerCase[index];
-        finalPassword += randomLetter.concat(randomLower);
+        // finalPassword += randomLetter.concat(randomLower);
       }
     if (answerNumbers);
     for ( var i = 0; i < passwordLength; i++) {
         var index =  Math.floor(Math.random() * number.length);
         var randomNumber = number[index];
-        finalPassword += randomLetter.concat(randomLower, randomNumber);
+        // finalPassword += randomLetter.concat(randomLower, randomNumber);
       }
     if (answerSpecialCharacters);
     for ( var i = 0; i < passwordLength; i++) {
