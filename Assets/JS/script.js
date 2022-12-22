@@ -61,49 +61,49 @@ function generatePassword() {
     var passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
     if (passwordLength < minNum || passwordLength > maxNum) {
         passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
-    };
+    }
     var answerLowercase = confirm ("Do you want to include lowercase letters in your password?");
     if (!answerLowercase) {
        answerUppercase = confirm ("Do you want to include UPPERCASE letters in your password?");
-    };
+    }
     var answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
     if (!answerUppercase) {
         answerNumbers = confirm ("Do you want to include numb3rs in your password?");
-     };
+     }
     var answerNumbers = confirm("Do you want numbers included in your password?");
     if (!answerNumbers) {
         answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
-     };
+     }
+   
     var answerSpecialCharacters = confirm("Do you want to add spec!al ch@r@cters in your passwword?")
     if (!answerSpecialCharacters) {
-     };
-    
-     for ( var i = 0; i <= passwordLength; i++) {
+     }
+    if (answerUppercase);
+    for ( var i = 0; i < passwordLength; i++) {
       var index =  Math.floor(Math.random() * upperCase.length);
       var randomLetter = upperCase[index];
       finalPassword += randomLetter;
-    };
-    
-    for ( var i = 0; i <= passwordLength; i++) {
+    }
+    if (answerLowercase);
+    for ( var i = 0; i < passwordLength; i++) {
         var index =  Math.floor(Math.random() * lowerCase.length);
         var randomLower = lowerCase[index];
         finalPassword += randomLetter.concat(randomLower);
-      };
-
-      for ( var i = 0; i <= passwordLength; i++) {
+      }
+    if (answerNumbers);
+    for ( var i = 0; i < passwordLength; i++) {
         var index =  Math.floor(Math.random() * number.length);
         var randomNumber = number[index];
         finalPassword += randomLetter.concat(randomLower, randomNumber);
-      };
-
-      for ( var i = 0; i <= passwordLength; i++) {
+      }
+    if (answerSpecialCharacters);
+    for ( var i = 0; i < passwordLength; i++) {
         var index =  Math.floor(Math.random() * specialCharacters.length);
         var randomCharacter = specialCharacters[index];
         finalPassword += randomLetter.concat(randomLower, randomNumber, randomCharacter);
-      };
+      }
 
     return finalPassword;
+}
 
-
-};
 generatePassword();
