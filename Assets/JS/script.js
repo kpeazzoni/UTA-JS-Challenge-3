@@ -69,47 +69,50 @@ function generatePassword() {
         answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
     }
 
-    var answerNumbers = confirm ("Do you want to include numb3rs in your password?");
-    var answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
-    
-    finalPassword = randomUpperLower(answerUppercase, answerLowercase, passwordLength, alphabet);
+    var answerNumbers = confirm("Do you want to include numb3rs in your password?");
+    var answerSpecialCharacters = confirm("Do you want to add spec!al ch@r@cters in your passwword?");
+    var randomNumSpecialChar = 0;
 
-    if (answerNumbers); {
-    var randomNumber =  Math.floor(Math.random() * 100);
-    finalPassword.pop();
-    finalPassword.unshift(randomNumber);
+    if (answerNumbers || answerSpecialCharacters) {
+       randomNumSpecialChar = Math.floor(Math.random() * passwordLength);
+
+        for (var i = 0; i <= randomNumSpecialChar; i++) {
+            if ((answerNumbers && answerSpecialCharacters && i % 2 === 0) || (answerNumbers && !answerSpecialCharacters)) {
+                var randomNumber = Math.floor(Math.random() * 100);
+                finalPassword.unshift(randomNumber);
+            } else if ((answerNumbers && answerSpecialCharacters && i % 2 !== 0) || (!answerNumbers && answerSpecialCharacters)) {
+                var index = Math.floor(Math.random() * specialCharacters.length);
+                var randomCharacter = specialCharacters[index];
+                finalPassword.unshift(randomCharacter);
+            } 
+        }
     };
 
-    if (answerSpecialCharacters) {
-       var index =  Math.floor(Math.random() * specialCharacters.length);
-       var randomCharacter = specialCharacters[index];
-       finalPassword.pop();
-       finalPassword.unshift(randomCharacter);
-    };
-    
-    return finalPassword.join('');
+    var passwordLetters = passwordLength - randomNumSpecialChar;
+
+    var partialPassword = randomUpperLower(answerUppercase, answerLowercase, passwordLetters, alphabet);
+    return finalPassword.concat(partialPassword).join('');
 };
 
- 
-    function randomUpperLower(answerUppercase, answerLowercase, passwordLength, alphabet) {
-        var letterArray = [];
-        for (var i = 0; i < passwordLength; i++) {
-            var index =  Math.floor(Math.random() * alphabet.length);
-            var randomLetter = alphabet[index];
-            
-            if (answerLowercase && !answerUppercase) {
-                letterArray.push(randomLetter.toLowerCase());
-            } else if (answerLowercase && answerUppercase) {
-               if (i % 2 === 0) {
-                letterArray.push(randomLetter.toLowerCase());
-                } else {
-                letterArray.push(randomLetter);
-                }
-            } else if (answerUppercase && !answerLowercase) {
-                letterArray.push(randomLetter);
+function randomUpperLower(answerUppercase, answerLowercase, passwordLetters, alphabet) {
+    var letterArray = [];
+    for (var i = 0; i < passwordLetters; i++) {
+        var index =  Math.floor(Math.random() * alphabet.length);
+        var randomLetter = alphabet[index];
+        
+        if (answerLowercase && !answerUppercase) {
+            letterArray.push(randomLetter.toLowerCase());
+        } else if (answerLowercase && answerUppercase) {
+            if (i % 2 === 0) {
+            letterArray.push(randomLetter.toLowerCase());
+            } else {
+            letterArray.push(randomLetter);
             }
+        } else if (answerUppercase && !answerLowercase) {
+            letterArray.push(randomLetter);
         }
-        return letterArray;
     }
+    return letterArray;
+}
        
     
