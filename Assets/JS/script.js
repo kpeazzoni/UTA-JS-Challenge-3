@@ -51,9 +51,8 @@ function writePassword() {
 function generatePassword() {
     var minNum = 8;
     var maxNum = 128;
-    var finalPassword = ''
-    var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",];
-    var number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24,'];
+    var finalPassword = []
+    var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",];
     var specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '-', '.', '~', '|', '<', '>', '=', '-', '_', '/', ':', ';', '?', '[', ']', '{', '}', '~'];
 
     var passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
@@ -73,47 +72,44 @@ function generatePassword() {
     var answerNumbers = confirm ("Do you want to include numb3rs in your password?");
     var answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
     
+    finalPassword = randomUpperLower(answerUppercase, answerLowercase, passwordLength, alphabet);
 
-    if (answerUppercase && !answerLowercase) {
-        for ( var i = 0; i < passwordLength; i++) {
-        var index =  Math.floor(Math.random() * upperCase.length);
-        var randomLetter = upperCase[index];
-        finalPassword += randomLetter;
-        }
-    }
+    if (answerNumbers); {
+    var randomNumber =  Math.floor(Math.random() * 100);
+    finalPassword.pop();
+    finalPassword.unshift(randomNumber);
+    };
 
-    if (answerLowercase && !answerUppercase) {
-        for ( var i = 0; i < passwordLength; i++) {
-            var index =  Math.floor(Math.random() * upperCase.length);
-            var randomLower = upperCase[index].toLowerCase();
-            finalPassword += randomLower;
-        }
-    }
-    if (answerLowercase && answerUppercase) {
-        for ( var i = 0; i < passwordLength; i++) {
-            var index =  Math.floor(Math.random() * upperCase.length);
-            var randomCase = upperCase[index];
-            if (i % 2 === 0) {
-                finalPassword += randomCase.toLowerCase();
-            }
-            else {
-                finalPassword += randomCase;
-            }
-        }
-    }
-
-    // if (answerNumbers);
-    // for ( var i = 0; i < passwordLength; i++) {
-    //     var index =  Math.floor(Math.random() * number.length);
-    //     var randomNumber = number[index];
-    //     // finalPassword += randomLetter.concat(randomLower, randomNumber);
-    //   }
-    // if (answerSpecialCharacters);
-    // for ( var i = 0; i < passwordLength; i++) {
-    //     var index =  Math.floor(Math.random() * specialCharacters.length);
-    //     var randomCharacter = specialCharacters[index];
-    //     finalPassword += randomLetter.concat(randomLower, randomNumber, randomCharacter);
-    //   }
-
-    return finalPassword;
+    if (answerSpecialCharacters) {
+       var index =  Math.floor(Math.random() * specialCharacters.length);
+       var randomCharacter = specialCharacters[index];
+       finalPassword.pop();
+       finalPassword.unshift(randomCharacter);
+    };
+    
+    return finalPassword.join('');
 };
+
+ 
+    function randomUpperLower(answerUppercase, answerLowercase, passwordLength, alphabet) {
+        var letterArray = [];
+        for (var i = 0; i < passwordLength; i++) {
+            var index =  Math.floor(Math.random() * alphabet.length);
+            var randomLetter = alphabet[index];
+            
+            if (answerLowercase && !answerUppercase) {
+                letterArray.push(randomLetter.toLowerCase());
+            } else if (answerLowercase && answerUppercase) {
+               if (i % 2 === 0) {
+                letterArray.push(randomLetter.toLowerCase());
+                } else {
+                letterArray.push(randomLetter);
+                }
+            } else if (answerUppercase && !answerLowercase) {
+                letterArray.push(randomLetter);
+            }
+        }
+        return letterArray;
+    }
+       
+    
