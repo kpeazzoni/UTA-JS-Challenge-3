@@ -2,15 +2,14 @@
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
 function writePassword() {
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
     passwordText.value = password;
 }
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
 
 // function generatePassword (value, value2) {
 // var password = "";
@@ -62,14 +61,17 @@ function generatePassword() {
     if (passwordLength < minNum || passwordLength > maxNum) {
         passwordLength = prompt("McFly! Please choose a password length from " + minNum + " to " + maxNum);
     }
-    var answerLowercase = confirm("Do you want to include lowercase letters in your password?");
-    if (!answerLowercase) {
+
+    var answerLowercase = confirm("DO YOU WANT TO INCLUDE lowercase LETTERS IN YOUR PASSWORD");
     var answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
+
+    while (!answerLowercase && !answerUppercase) {
+        alert("you must choose either uppercase and/or lowercase");
+        answerLowercase = confirm("DO YOU WANT TO INCLUDE lowercase LETTERS IN YOUR PASSWORD");
+        answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
     }
-    // var answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
-    if (!answerUppercase) {
+
     var  answerNumbers = confirm ("Do you want to include numb3rs in your password?");
-     }
     // var answerNumbers = confirm("Do you want numb3rs included in your password?");
     if (!answerNumbers) {
     var answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
@@ -105,7 +107,3 @@ function generatePassword() {
 
     return finalPassword;
 };
-
-generateBtn.addEventListener("click", writePassword);
-
-generatePassword();
