@@ -60,22 +60,22 @@ function generatePassword() {
 
     var passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
     if (passwordLength < minNum || passwordLength > maxNum) {
-        passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
+        passwordLength = prompt("McFly! Please choose a password length from " + minNum + " to " + maxNum);
     }
-    var answerLowercase = confirm ("Do you want to include lowercase letters in your password?");
+    var answerLowercase = confirm("Do you want to include lowercase letters in your password?");
     if (!answerLowercase) {
-       answerUppercase = confirm ("Do you want to include UPPERCASE letters in your password?");
-    }
     var answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
+    }
+    // var answerUppercase = confirm("Do you want to include UPPERCASE letters in your password?");
     if (!answerUppercase) {
-        answerNumbers = confirm ("Do you want to include numb3rs in your password?");
+    var  answerNumbers = confirm ("Do you want to include numb3rs in your password?");
      }
-    var answerNumbers = confirm("Do you want numbers included in your password?");
+    // var answerNumbers = confirm("Do you want numb3rs included in your password?");
     if (!answerNumbers) {
-        answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
+    var answerSpecialCharacters = confirm ("Do you want to add spec!al ch@r@cters in your passwword?");
      }
    
-    var answerSpecialCharacters = confirm("Do you want to add spec!al ch@r@cters in your passwword?")
+    // var answerSpecialCharacters = confirm("Do you want to add spec!al ch@r@cters in your passwword?")
     if (!answerSpecialCharacters) {
      }
     if (answerUppercase);
@@ -104,6 +104,8 @@ function generatePassword() {
       }
 
     return finalPassword;
-}
+};
+
+generateBtn.addEventListener("click", writePassword);
 
 generatePassword();
