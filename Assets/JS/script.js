@@ -11,43 +11,6 @@ function writePassword() {
     passwordText.value = password;
 }
 
-// function generatePassword (value, value2) {
-// var password = "";
-
-//   if (value == 8) {
-
-//   }
-//   return password;
-// }
-
-
-// must return a string value that is a password
-// prompt- asking user to choose a number btween 8-128  
-
-
-    // var to save lengeth
-    // validate user num
-// confirm user for confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-    // make each confirm a separate prompt (4)
-    // validate that at least one of the categpries they said yes
-    // 4 vars to save T/F to include characters
-// vars that include all user options of each category
-    // array of strings for each categofy
-    
-    // var upper = ["A", B"]
-// if my user says yes to inlcude that category choose random (Math.random) elemeents from the array
-// var choiceNumber = Math.floor(Math.random() * choiceArray.length);
-
-    // how to decide how many elements from eaeah array
-    // you can choose to place all the "Yes" characters into one bucket and then randomly choose which array to choose
-
-    // going to need at least one for loop and several if / else statements
-// join your chosen elements into a string
-//return passwordString
-
-    
-    
-
 function generatePassword() {
     var minNum = 8;
     var maxNum = 128;
@@ -56,7 +19,7 @@ function generatePassword() {
     var specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '-', '.', '~', '|', '<', '>', '=', '-', '_', '/', ':', ';', '?', '[', ']', '{', '}', '~'];
 
     var passwordLength = prompt("Please choose a password length from " + minNum + " to " + maxNum);
-    if (passwordLength < minNum || passwordLength > maxNum) {
+    while (passwordLength < minNum || passwordLength > maxNum) {
         passwordLength = prompt("McFly! Please choose a password length from " + minNum + " to " + maxNum);
     }
 
@@ -71,27 +34,42 @@ function generatePassword() {
 
     var answerNumbers = confirm("Do you want to include numb3rs in your password?");
     var answerSpecialCharacters = confirm("Do you want to add spec!al ch@r@cters in your passwword?");
+
     var randomNumSpecialChar = 0;
+    var numSpecialCharArray = [];
 
     if (answerNumbers || answerSpecialCharacters) {
-       randomNumSpecialChar = Math.floor(Math.random() * passwordLength);
+       randomNumSpecialChar = Math.floor(Math.random() * (passwordLength - 3));
+       while (randomNumSpecialChar < 1) {
+        randomNumSpecialChar = Math.floor(Math.random() * (passwordLength - 3));
+       }
 
-        for (var i = 0; i <= randomNumSpecialChar; i++) {
+        for (var i = 1; i <= randomNumSpecialChar; i++) {
             if ((answerNumbers && answerSpecialCharacters && i % 2 === 0) || (answerNumbers && !answerSpecialCharacters)) {
-                var randomNumber = Math.floor(Math.random() * 100);
-                finalPassword.unshift(randomNumber);
+                var randomNumber = Math.floor(Math.random() * 9);
+                numSpecialCharArray.unshift(randomNumber);
             } else if ((answerNumbers && answerSpecialCharacters && i % 2 !== 0) || (!answerNumbers && answerSpecialCharacters)) {
                 var index = Math.floor(Math.random() * specialCharacters.length);
                 var randomCharacter = specialCharacters[index];
-                finalPassword.unshift(randomCharacter);
+                numSpecialCharArray.unshift(randomCharacter);
             } 
         }
     };
 
     var passwordLetters = passwordLength - randomNumSpecialChar;
-
     var partialPassword = randomUpperLower(answerUppercase, answerLowercase, passwordLetters, alphabet);
-    return finalPassword.concat(partialPassword).join('');
+    finalPassword = numSpecialCharArray.concat(partialPassword);
+
+    //using Fisher Yates shuffle method to randomly sort an array referenced here
+    //https://stackoverflow.com/questions/64925666/how-can-i-sort-an-array-randomly-in-javascript
+    for (var i = 0; i <= passwordLength; i++) {
+        j = Math.floor(Math.random() * i)
+        k = finalPassword[i]
+        finalPassword[i] = finalPassword[j]
+        finalPassword[j] = k
+    }
+
+    return finalPassword.join('');
 };
 
 function randomUpperLower(answerUppercase, answerLowercase, passwordLetters, alphabet) {
